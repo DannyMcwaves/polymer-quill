@@ -1,0 +1,9 @@
+TOMORROW.
+
+1. test the polymer-quill master project and make sure it works.
+** this is the primary aim of this.
+** at least get this to work tomorrow.
+
+2. incorporate this into the main polymer-quill component.
+** test the polymer-quill master project with the main project.
+** get something working tomorrow at least.
