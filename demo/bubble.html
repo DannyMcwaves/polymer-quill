@@ -111,16 +111,16 @@
           var app = document.querySelector('#bubbleApp4');
 
           app.toolBarOptions = [
-            [{ header: [1, 2, 3,4, 5, 6, false] }],
+            [{header: [1, 2, 3, 4, 5, 6, false]}],
             ['bold', 'italic', 'underline', 'strike'],
-            [{ 'align': [] }],
-            [{ 'indent': '-1'}, { 'indent': '+1' }], 
+            [{'align': [] }],
+            [{'indent': '-1'}, {'indent': '+1'}],
             ['link', 'blockquote', 'code-block', 'image', 'video'],
-            [{ list: 'ordered' }, { list: 'bullet' }],
-            [{ 'color': [] }, { 'background': [] }]
+            [{list: 'ordered'}, {list: 'bullet'}],
+            [{'color': []}, {'background': []}],
          ];
 
-          app.handleResponse = function (event) {
+          app.handleResponse = function(event) {
             console.log('handleResponse');
           };
 
