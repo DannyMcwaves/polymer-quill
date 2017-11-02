@@ -16,13 +16,12 @@
   "main": "polymer-quill.html",
   "repository": {
     "type": "git",
-    "url": "git://github.com/chuckh/polymer-quill.git"
+    "url": "git://github.com/DannyMcwaves/polymer-quill.git"
   },
   "license": "MIT",
-  "homepage": "https://github.com/chuckh/polymer-quill",
+  "homepage": "https://github.com/DannyMcwaves/polymer-quill",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.7.0",
-    "quill": "https://github.com/quilljs/quill/releases/download/v1.3.2/quill.tar.gz",
+    "polymer": "Polymer/polymer#^2.0.0",
     "iron-ajax": "PolymerElements/iron-ajax#^1.4.3",
     "iron-localstorage": "PolymerElements/iron-localstorage#^1.0.6",
     "marked-element": "PolymerElements/marked-element#^1.2.0",
