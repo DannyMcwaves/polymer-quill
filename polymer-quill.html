@@ -80,18 +80,18 @@ Custom property | Description | Default
   <template>
     <style include="polymer-quill-styles-snow">
       :host {
-        --calculated-polymer-quill-editor-max-height: var(--polymer-quill-editor-max-height, 400px);
-        --calculated-polymer-quill-editor-min-height: var(--polymer-quill-editor-min-height, 50px);
-        --calculated-polymer-quill-editor-border: var(--polymer-quill-editor-border, solid 1px #ccc);
-        --calculated-polymer-quill-editor-overflow: var(--polymer-quill-editor-overflow, scroll);
+        --calculated-polymer-quill-editor-max-height: let(--polymer-quill-editor-max-height, 400px);
+        --calculated-polymer-quill-editor-min-height: let(--polymer-quill-editor-min-height, 50px);
+        --calculated-polymer-quill-editor-border: let(--polymer-quill-editor-border, solid 1px #ccc);
+        --calculated-polymer-quill-editor-overflow: let(--polymer-quill-editor-overflow, scroll);
         display: block;
         @apply(--polymer-quill);
       }
       #editor {
-        max-height: var(--calculated-polymer-quill-editor-max-height);
-        min-height: var(--calculated-polymer-quill-editor-min-height);
-        overflow: var(--calculated-polymer-quill-editor-overflow);
-        border: var(--calculated-polymer-quill-editor-border);
+        max-height: let(--calculated-polymer-quill-editor-max-height);
+        min-height: let(--calculated-polymer-quill-editor-min-height);
+        overflow: let(--calculated-polymer-quill-editor-overflow);
+        border: let(--calculated-polymer-quill-editor-border);
      }
       .results {
         padding: 20px 10px;
@@ -171,6 +171,7 @@ Custom property | Description | Default
   </template>
 
   <script>
+    let Quill = window.Quill;
     Polymer({
 
       is: 'polymer-quill',
@@ -327,7 +328,7 @@ Custom property | Description | Default
         if (this.toolbarType === 'full') {
           this.standardToolbar = false;
         }
-        var Delta = Quill.import('delta');
+        let Delta = Quill.import('delta');
         this.quill = new Quill(this.$.editor, {
           modules: {
             toolbar: this.$.toolbar
@@ -350,10 +351,10 @@ Custom property | Description | Default
         // Set initial content
         this.async(function() {
           try { // try with initial delay
-            var notset = true;
-            if (this.content && this.content.length > 1 && this.content != undefined && this.content !="<p>undefined</p>" ) {
+            let notset = true;
+            if (this.content && this.content.length > 1 && this.content !== undefined && this.content !== '<p>undefined</p>' ) {
               if (this.storeAs === 'delta') {
-                this.quill.setContents(JSON.parse(this.content),'api');
+                this.quill.setContents(JSON.parse(this.content), 'api');
               } else { // HTML
                 this.quill.root.innerHTML = this.content;
               }
@@ -361,7 +362,7 @@ Custom property | Description | Default
               this.html = this.quill.root.innerHTML;
             }
             if (notset) {
-              throw 'notset';
+              throw new Error('notset');
             }
           }
           catch (notset) {
@@ -369,29 +370,29 @@ Custom property | Description | Default
             this.delay = this.delay * 2;
             this.setContent();
           }
-        },this.delay);
+        }, this.delay);
 
         // Store accumulated changes
-        var change = new Delta();
-        this.quill.on('text-change', function(delta,oldDeta,source) {
+        let change = new Delta();
+        this.quill.on('text-change', function(delta, oldDeta, source) {
           // Autolink URLs when typing
-          var regex = /https?:\/\/[^\s]+$/;
+          let regex = /https?:\/\/[^\s]+$/;
           if (delta.ops.length === 2 && delta.ops[0].retain && this.isWhitespace(delta.ops[1].insert)) {
-            var endRetain = delta.ops[0].retain;
-            var text = this.quill.getText().substr(0, endRetain);
-            var match = text.match(regex);
+            let endRetain = delta.ops[0].retain;
+            let text = this.quill.getText().substr(0, endRetain);
+            let match = text.match(regex);
 
             if (match !== null) {
-              var url = match[0];
+              let url = match[0];
 
-              var ops = [];
+              let ops = [];
               if (endRetain > url.length) {
-                ops.push({ retain: endRetain - url.length });
+                ops.push({retain: endRetain - url.length});
               }
 
               ops = ops.concat([
-                { delete: url.length },
-                { insert: url, attributes: { link: url } }
+                {delete: url.length},
+                {insert: url, attributes: {link: url}}
               ]);
 
               this.quill.updateContents({
@@ -430,29 +431,28 @@ Custom property | Description | Default
 
         // Autolink URLs when pasting
         this.quill.clipboard.addMatcher(Node.TEXT_NODE, function(node, delta) {
-          var regex = /https?:\/\/[^\s]+/g;
+          let regex = /https?:\/\/[^\s]+/g;
           if (typeof(node.data) !== 'string') return;
-          var matches = node.data.match(regex);
+          let matches = node.data.match(regex);
           if (matches && matches.length > 0) {
-            var ops = [];
-            var str = node.data;
+            let ops = [];
+            let str = node.data;
             matches.forEach(function(match) {
-              var split = str.split(match);
-              var beforeLink = split.shift();
-              ops.push({ insert: beforeLink });
-              ops.push({ insert: match, attributes: { link: match } });
+              let split = str.split(match);
+              let beforeLink = split.shift();
+              ops.push({insert: beforeLink});
+              ops.push({insert: match, attributes: {link: match}});
               str = split.join(match);
             });
             delta.ops = ops;
           }
           return delta;
         });
-
       },
 
       isWhitespace: function(ch) {
-        var whiteSpace = false
-        if ((ch == ' ') || (ch == '\t') || (ch == '\n')) {
+        let whiteSpace = false;
+        if ((ch === ' ') || (ch === '\t') || (ch === '\n')) {
           whiteSpace = true;
         }
         return whiteSpace;
@@ -460,10 +460,10 @@ Custom property | Description | Default
 
       setContent: function() {
         this.async(function() {
-          var notset = true;
-          if (this.content && this.content.length > 1 && this.content != undefined && this.content !="<p>undefined</p>" ) {
+          let notset = true;
+          if (this.content && this.content.length > 1 && this.content !== undefined && this.content !=='<p>undefined</p>' ) {
             if (this.storeAs === 'delta') {
-              this.quill.setContents(JSON.parse(this.content),'api');
+              this.quill.setContents(JSON.parse(this.content), 'api');
             } else { // HTML
               this.quill.root.innerHTML = this.content;
             }
@@ -471,7 +471,7 @@ Custom property | Description | Default
             this.html = this.quill.root.innerHTML;
           }
           return notset;
-        },this.delay);
+        }, this.delay);
       },
 
       attached: function() {
@@ -480,15 +480,15 @@ Custom property | Description | Default
 
       // Convert Deltas to HTML, source should be deltas string
       getHTML: function(source) {
-        var inputDelta = this.content;
+        let inputDelta = this.content;
         if (source) {
           inputDelta = source;
         }
-        var html = '';
+        let html = '';
         if (this.storeAs === 'delta') {
-          var tempHtml = document.createElement("div");
-          var quillHtml = new Quill(tempHtml);
-          quillHtml.setContents(JSON.parse(inputDelta),'api');
+          let tempHtml = document.createElement('div');
+          let quillHtml = new Quill(tempHtml);
+          quillHtml.setContents(JSON.parse(inputDelta), 'api');
           html = quillHtml.root.innerHTML;
           quillHtml = null;
           tempHtml = null;
@@ -501,29 +501,29 @@ Custom property | Description | Default
 
       // Content Change
       _contentChanged: function(newValue, oldValue) {
-        if (this.useContentReset && newValue != undefined) {
+        if (this.useContentReset && newValue !== undefined) {
           this.resetContent(newValue);
         }
       },
 
       // Reset Content
-      resetContent: function(content){
+      resetContent: function(content) {
         // Set content
         this.async(function() {
           if (this.storeAs === 'delta') {
             if (this.content.length > 1) {
-              this.quill.setContents(JSON.parse(this.content),'api');
+              this.quill.setContents(JSON.parse(this.content), 'api');
             }
           } else { // HTML
             this.quill.root.innerHTML = this.content;
           }
           this.html = this.quill.root.innerHTML;
-        },this.delay);
+        }, this.delay);
       },
 
       // Toogle Editor Enable (show toolbar and enables editing), Disabled (hide toolbar and disables editing)
       toggleEnable: function() {
-        if (this.enable  === 'true') {
+        if (this.enable === 'true') {
           this.disableEditor();
         } else {
           this.enableEditor();
