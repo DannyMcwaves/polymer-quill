@@ -1,0 +1,26 @@
+{
+	"entrypoint": "index.html",
+	"shell": "",
+	"fragments": [],
+	"sources": [],
+	"extraDependencies": [
+		"bower_component/**/*",
+		"bower_components/webcomponentsjs/webcomponents-lite.js"
+	],
+	"lint": {
+		"rules": ["polymer-2"]
+	},
+	"builds": [
+		{
+          "name": "es5-unbundled",
+          "bundle": false,
+          "js": {"compile": true, "minify": true},
+          "css": {"minify": true},
+          "html": {"minify": true},
+          "addServiceWorker": true,
+          "addPushManifest": true,
+          "insertPrefetchLinks": true
+		},
+		{ "preset": "es6-unbundled" }
+	]
+}
