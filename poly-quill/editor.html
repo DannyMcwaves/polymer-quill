@@ -1,0 +1,39 @@
+
+<link rel="import" href="./polymer-quill.html">
+
+<dom-module id="my-editor">
+
+    <template>
+        <style include="quill-core quill-snow"></style>
+        <style>
+            #editor {
+                border: 1px solid #c0c0c0;
+                min-height:350px;
+            }
+        </style>
+        <div id="editor"></div>
+    </template>
+
+    <script>
+      class MyEditor extends Polymer.Element {
+
+        // the static is method that returns the name of the component.
+        static get is() { return 'my-editor' }
+
+        // when the component is ready.
+        ready() {
+          super.ready();
+          this.editor = new Quill(this.$.editor, {
+            theme: 'snow',
+            placeholder: 'please compose an epic',
+            debug: 'info',
+            readOnly: true
+          })
+        }
+      }
+
+      window.customElements.define(MyEditor.is, MyEditor);
+
+    </script>
+
+</dom-module>
