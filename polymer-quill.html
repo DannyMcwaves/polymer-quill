@@ -1,5 +1,5 @@
 
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="polymer-quill-import.html">
 <link rel="import" href="polymer-quill-styles-snow.html">
 
@@ -172,9 +172,13 @@ Custom property | Description | Default
 
   <script>
     let Quill = window.Quill;
-    Polymer({
+    class PolymerQuill extends Polymer.Element {
 
-      is: 'polymer-quill',
+      constructor() {
+        super();
+      }
+
+      static get is() {return 'polymer-quill';}
 
       /**
         * Fired when element is attached.
@@ -194,147 +198,150 @@ Custom property | Description | Default
         * @event ready
         */
 
-      properties: {
-        /**
-         * Content which is in Deltas or HTML format.
-         */
-        content: {
-          type: String,
-          value: '',
-          notify: true,
-          // reflectToAttribute: true,
-          observer: '_contentChanged'
-        },
-        /**
-         * Content which is in HTML format.
-         */
-        html: {
-          type: String,
-          value: '',
-          notify: true,
-          // reflectToAttribute: true,
-        },
-        /**
-         * Store as Quill Deltas or HTML.
-         * Options are `delta`, `html`.
-         */
-        storeAs: {
-          type: String,
-          value: 'delta',
-          notify: true,
-        },
-        /**
-         * Save Interval in milliseconds.
-         * Default is `2000`.
-         */
-        saveInterval: {
-          type: Number,
-          value: 2000,
-          notify: true,
-        },
-        /**
-         * Delay load of content in milliseconds.
-         * Provide time for loading data from polymerfire or iron-ajax.
-         * Default is `10`.
-         */
-        delay: {
-          type: Number,
-          value: 10,
-          notify: true,
-        },
-        /**
-         * Show Results below editor of saves in Delta or HMTL format.
-         * Default is `false`.
-         */
-        showResults: {
-          type: Boolean,
-          value: false,
-          notify: true,
-        },
-        /**
-         * Show Results below editor of saves in HMTL format.
-         * Default is `false`.
-         */
-        showHtml: {
-          type: Boolean,
-          value: false,
-          notify: true,
-        },
-        /**
-         * Editor toolbar type.
-         * Options are `standard`, `full`.
-         */
-        toolbarType: {
-          type: String,
-          value: 'standard',
-          notify: true,
-        },
-        /**
-         * Standard Tool
-         * Default is `true`.
-         */
-        standardToolbar: {
-          type: Boolean,
-          value: true,
-          notify: true,
-        },
-        /**
-         * Enable tracks if editing is enabled.
-         * Default is `true`.
-         */
-        enable: {
-          type: String,
-          value: 'true',
-          notify: true,
-        },
-         /**
-         * Whether to instantiate the editor to read-only mode.
-         * Default is `false`.
-         */
-        readOnly: {
-          type: Boolean,
-          value: false,
-          notify: true,
-        },
-        /**
-         * Disable Class title.
-         * Default is ``.
-         */
-        disabledClass: {
-          type: String,
-          value: 'style-scope polymer-quill ql-container ql-snow'
-        },
-        /**
-         * Whether to use content reset for two way data binding.
-         * Default is `false`.
-         */
-        useContentReset: {
-          type: Boolean,
-          value: false,
-          notify: true,
-        },
-        /**
-         * Placeholder for empty editor.
-         * Default is `Compose an epic...`.
-         */
-        placeholder: {
-          type: String,
-          value: 'Compose an epic...',
-          notify: true,
-        }
-      },
+      static get properties() {
+        return {
+          /**
+           * Content which is in Deltas or HTML format.
+           */
+          content: {
+            type: String,
+            value: '',
+            notify: true,
+            // reflectToAttribute: true,
+            observer: '_contentChanged'
+          },
+          /**
+           * Content which is in HTML format.
+           */
+          html: {
+            type: String,
+            value: '',
+            notify: true,
+            // reflectToAttribute: true,
+          },
+          /**
+           * Store as Quill Deltas or HTML.
+           * Options are `delta`, `html`.
+           */
+          storeAs: {
+            type: String,
+            value: 'delta',
+            notify: true,
+          },
+          /**
+           * Save Interval in milliseconds.
+           * Default is `2000`.
+           */
+          saveInterval: {
+            type: Number,
+            value: 2000,
+            notify: true,
+          },
+          /**
+           * Delay load of content in milliseconds.
+           * Provide time for loading data from polymerfire or iron-ajax.
+           * Default is `10`.
+           */
+          delay: {
+            type: Number,
+            value: 10,
+            notify: true,
+          },
+          /**
+           * Show Results below editor of saves in Delta or HMTL format.
+           * Default is `false`.
+           */
+          showResults: {
+            type: Boolean,
+            value: false,
+            notify: true,
+          },
+          /**
+           * Show Results below editor of saves in HMTL format.
+           * Default is `false`.
+           */
+          showHtml: {
+            type: Boolean,
+            value: false,
+            notify: true,
+          },
+          /**
+           * Editor toolbar type.
+           * Options are `standard`, `full`.
+           */
+          toolbarType: {
+            type: String,
+            value: 'standard',
+            notify: true,
+          },
+          /**
+           * Standard Tool
+           * Default is `true`.
+           */
+          standardToolbar: {
+            type: Boolean,
+            value: true,
+            notify: true,
+          },
+          /**
+           * Enable tracks if editing is enabled.
+           * Default is `true`.
+           */
+          enable: {
+            type: String,
+            value: 'true',
+            notify: true,
+          },
+          /**
+           * Whether to instantiate the editor to read-only mode.
+           * Default is `false`.
+           */
+          readOnly: {
+            type: Boolean,
+            value: false,
+            notify: true,
+          },
+          /**
+           * Disable Class title.
+           * Default is ``.
+           */
+          disabledClass: {
+            type: String,
+            value: 'style-scope polymer-quill ql-container ql-snow'
+          },
+          /**
+           * Whether to use content reset for two way data binding.
+           * Default is `false`.
+           */
+          useContentReset: {
+            type: Boolean,
+            value: false,
+            notify: true,
+          },
+          /**
+           * Placeholder for empty editor.
+           * Default is `Compose an epic...`.
+           */
+          placeholder: {
+            type: String,
+            value: 'Compose an epic...',
+            notify: true,
+          }
+        };
+      }
 
-      ready: function() {
+      ready() {
+        super.ready();
         if (this.toolbarType === 'full') {
           this.standardToolbar = false;
         }
         let Delta = Quill.import('delta');
         this.quill = new Quill(this.$.editor, {
           modules: {
-            toolbar: this.$.toolbar
+//            toolbar: this.$.toolbar
           },
           theme: 'snow',
-          strict: false,
+          strict: false,``
           readOnly: this.readOnly,
           placeholder: this.placeholder,
           bounds: this.$.editor
@@ -448,17 +455,17 @@ Custom property | Description | Default
           }
           return delta;
         });
-      },
+      }
 
-      isWhitespace: function(ch) {
+      isWhitespace(ch) {
         let whiteSpace = false;
         if ((ch === ' ') || (ch === '\t') || (ch === '\n')) {
           whiteSpace = true;
         }
         return whiteSpace;
-      },
+      }
 
-      setContent: function() {
+      setContent() {
         this.async(function() {
           let notset = true;
           if (this.content && this.content.length > 1 && this.content !== undefined && this.content !=='<p>undefined</p>' ) {
@@ -472,14 +479,14 @@ Custom property | Description | Default
           }
           return notset;
         }, this.delay);
-      },
+      }
 
-      attached: function() {
+      attached() {
         this.fire('attached');
-      },
+      }
 
       // Convert Deltas to HTML, source should be deltas string
-      getHTML: function(source) {
+      getHTML(source) {
         let inputDelta = this.content;
         if (source) {
           inputDelta = source;
@@ -497,17 +504,17 @@ Custom property | Description | Default
         }
         // console.log('getHTML: ',html);
         return html;
-      },
+      }
 
       // Content Change
-      _contentChanged: function(newValue, oldValue) {
+      _contentChanged(newValue, oldValue) {
         if (this.useContentReset && newValue !== undefined) {
           this.resetContent(newValue);
         }
-      },
+      }
 
       // Reset Content
-      resetContent: function(content) {
+      resetContent(content) {
         // Set content
         this.async(function() {
           if (this.storeAs === 'delta') {
@@ -519,29 +526,29 @@ Custom property | Description | Default
           }
           this.html = this.quill.root.innerHTML;
         }, this.delay);
-      },
+      }
 
       // Toogle Editor Enable (show toolbar and enables editing), Disabled (hide toolbar and disables editing)
-      toggleEnable: function() {
+      toggleEnable() {
         if (this.enable === 'true') {
           this.disableEditor();
         } else {
           this.enableEditor();
         }
         return this.enable;
-      },
+      }
 
       // Enable Editor (show toolbar and enable editing)
-      enableEditor: function() {
+      enableEditor() {
         this.enable = 'true';
         this.hideToolbar = false;
         this.quill.enable(true);
         this.disabledClass = 'style-scope polymer-quill ql-container ql-snow';
         this.readOnly = false;
-      },
+      }
 
       // Disabled Editor (hide toolbar and disable editing)
-      disableEditor: function() {
+      disableEditor() {
         this.enable = 'false';
         this.hideToolbar = true;
         this.quill.enable(false);
@@ -549,6 +556,9 @@ Custom property | Description | Default
         this.readOnly = true;
       }
 
-    });
+    }
+
+    window.customElements.define(PolymerQuill.is, PolymerQuill);
+
   </script>
 </dom-module>
