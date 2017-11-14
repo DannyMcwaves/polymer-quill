@@ -132,9 +132,11 @@ Not used anymore `--polymer-quill-editor-overflow`   | Custom overflow for edito
   </template>
 
   <script>
-    Polymer({
+    const Quill = window.Quill;
 
-      is: 'polymer-quill-bubble',
+    class PolymerQuillBubble extends Polymer.Element {
+
+      static get is() {return 'polymer-quill-bubble';}
 
       /**
         * Fired when element is attached.
@@ -154,138 +156,142 @@ Not used anymore `--polymer-quill-editor-overflow`   | Custom overflow for edito
         * @event ready
         */
 
-      properties: {
+      static get properties() {
         /**
          * Content which is in Deltas or HTML format.
          */
-        content: {
-          type: String,
-          value: '',
-          notify: true,
-          // reflectToAttribute: true,
-          observer: '_contentChanged'
-        },
-        /**
-         * Content which is in HTML format.
-         */
-        html: {
-          type: String,
-          value: '',
-          notify: true,
-          // reflectToAttribute: true,
-        },
-        /**
-         * Store as Quill Deltas or HTML.
-         * Options are `delta`, `html`.
-         */
-        storeAs: {
-          type: String,
-          value: 'delta',
-          notify: true,
-        },
-        /**
-         * Save Interval in milliseconds.
-         * Default is `2000`.
-         */
-        saveInterval: {
-          type: Number,
-          value: 2000,
-          notify: true,
-        },
-        /**
-         * Delay load of content in milliseconds.
-         * Provide time for loading data from polymerfire or iron-ajax.
-         * Default is `10`.
-         */
-        delay: {
-          type: Number,
-          value: 10,
-          notify: true,
-        },
-        /**
-         * Show Results below editor of saves in Delta or HMTL format.
-         * Default is `false`.
-         */
-        showResults: {
-          type: Boolean,
-          value: false,
-          notify: true,
-        },
-        /**
-         * Show Results below editor of saves in HMTL format.
-         * Default is `false`.
-         */
-        showHtml: {
-          type: Boolean,
-          value: false,
-          notify: true,
-        },
-        /**
-         * Set ability for user to edit, via input devices like the mouse or keyboard. Does not affect capabilities of API calls.
-         * Default is `true`.
-         */
-        enable: {
-          type: String,
-          value: 'true',
-          notify: true,
-        },
-        /**
-         * Whether to instantiate the editor to read-only mode.
-         * Default is `false`.
-         */
-        readOnly: {
-          type: Boolean,
-          value: false,
-          notify: true,
-        },
-        /**
-         * Disable Class title.
-         * Default is ``.
-         */
-        disabledClass: {
-          type: String,
-          value: 'style-scope polymer-quill ql-container ql-bubble'
-        },
-        /**
-         * Whether to use content reset for two way data binding.
-         * Default is `false`.
-         */
-        useContentReset: {
-          type: Boolean,
-          value: false,
-          notify: true,
-        },
-        /**
-         * Placeholder for empty editor.
-         * Default is `Compose an epic...`.
-         */
-        placeholder: {
-          type: String,
-          value: 'Compose an epic...',
-          notify: true,
-        },
-        /**
-         * Toolbar Options.
-         * Default is `above`.
-         */
-        toolbarOptions: {
-          type: Object,
-          notify: true,
-          value: [
-            [{ header: [1, 2, 3, 4, false] }],
-            ['bold', 'italic', 'underline', 'strike'],
-            [{ 'align': [] }],
-            [{ 'indent': '-1'}, { 'indent': '+1' }], 
-            ['link', 'blockquote', 'code-block', 'image', 'video'],
-            [{ 'color': [] }, { 'background': [] }],
-            [{ list: 'ordered' }, { list: 'bullet' }],
-            ['clean']
-          ]
-        }
-      },
+        return {
 
-      ready: function() {
-        var Delta = Quill.import('delta');
+          content: {
+            type: String,
+            value: '',
+            notify: true,
+            // reflectToAttribute: true,
+            observer: '_contentChanged'
+          },
+          /**
+           * Content which is in HTML format.
+           */
+          html: {
+            type: String,
+            value: '',
+            notify: true,
+            // reflectToAttribute: true,
+          },
+          /**
+           * Store as Quill Deltas or HTML.
+           * Options are `delta`, `html`.
+           */
+          storeAs: {
+            type: String,
+            value: 'delta',
+            notify: true,
+          },
+          /**
+           * Save Interval in milliseconds.
+           * Default is `2000`.
+           */
+          saveInterval: {
+            type: Number,
+            value: 2000,
+            notify: true,
+          },
+          /**
+           * Delay load of content in milliseconds.
+           * Provide time for loading data from polymerfire or iron-ajax.
+           * Default is `10`.
+           */
+          delay: {
+            type: Number,
+            value: 10,
+            notify: true,
+          },
+          /**
+           * Show Results below editor of saves in Delta or HMTL format.
+           * Default is `false`.
+           */
+          showResults: {
+            type: Boolean,
+            value: false,
+            notify: true,
+          },
+          /**
+           * Show Results below editor of saves in HMTL format.
+           * Default is `false`.
+           */
+          showHtml: {
+            type: Boolean,
+            value: false,
+            notify: true,
+          },
+          /**
+           * Set ability for user to edit, via input devices like the mouse or keyboard. Does not affect capabilities of API calls.
+           * Default is `true`.
+           */
+          enable: {
+            type: String,
+            value: 'true',
+            notify: true,
+          },
+          /**
+           * Whether to instantiate the editor to read-only mode.
+           * Default is `false`.
+           */
+          readOnly: {
+            type: Boolean,
+            value: false,
+            notify: true,
+          },
+          /**
+           * Disable Class title.
+           * Default is ``.
+           */
+          disabledClass: {
+            type: String,
+            value: 'style-scope polymer-quill ql-container ql-bubble'
+          },
+          /**
+           * Whether to use content reset for two way data binding.
+           * Default is `false`.
+           */
+          useContentReset: {
+            type: Boolean,
+            value: false,
+            notify: true,
+          },
+          /**
+           * Placeholder for empty editor.
+           * Default is `Compose an epic...`.
+           */
+          placeholder: {
+            type: String,
+            value: 'Compose an epic...',
+            notify: true,
+          },
+          /**
+           * Toolbar Options.
+           * Default is `above`.
+           */
+          toolbarOptions: {
+            type: Object,
+            notify: true,
+            value: [
+              [{ header: [1, 2, 3, 4, false] }],
+              ['bold', 'italic', 'underline', 'strike'],
+              [{ 'align': [] }],
+              [{ 'indent': '-1'}, { 'indent': '+1' }],
+              ['link', 'blockquote', 'code-block', 'image', 'video'],
+              [{ 'color': [] }, { 'background': [] }],
+              [{ list: 'ordered' }, { list: 'bullet' }],
+              ['clean']
+            ]
+          }
+        };
+      }
+
+      ready() {
+        super.ready();
+        let Delta = Quill.import('delta');
         this.quill = new Quill(this.$.editor, {
           modules: {
             toolbar: this.toolbarOptions
@@ -294,7 +300,7 @@ Not used anymore `--polymer-quill-editor-overflow`   | Custom overflow for edito
           strict: false,
           readOnly: this.readOnly,
           placeholder: this.placeholder,
-          scrollingContainer: this.$.scrollingContainer, 
+          scrollingContainer: this.$.scrollingContainer,
           bounds: this.$.editor
         });
 
@@ -306,44 +312,42 @@ Not used anymore `--polymer-quill-editor-overflow`   | Custom overflow for edito
         }
 
         // Set initial content
-        this.async(function() {
-          try { // try with initial delay
-            var notset = true;
-            if (this.content && this.content.length > 1 && this.content != undefined && this.content !="<p>undefined</p>" ) {
-              if (this.storeAs === 'delta') {
-                this.quill.setContents(JSON.parse(this.content),'api');
-              } else { // HTML
-                this.quill.root.innerHTML = this.content;
-              }
-              notset = false;
-              this.html = this.quill.root.innerHTML;
+        try { // try with initial delay
+          let notset = true;
+          if (this.content && this.content.length > 1 && this.content !== undefined && this.content !== '<p>undefined</p>' ) {
+            if (this.storeAs === 'delta') {
+              this.quill.setContents(JSON.parse(this.content),'api');
+            } else { // HTML
+              this.quill.root.innerHTML = this.content;
             }
-            if (notset) {
-              throw 'notset';
-            }
+            notset = false;
+            this.html = this.quill.root.innerHTML;
           }
-          catch (notset) {
-            // try again after doubling the delay
-            this.delay = this.delay * 2;
-            this.setContent();
+          if (notset) {
+            throw 'notset';
           }
-        },this.delay);
+        }
+        catch (notset) {
+          // try again after doubling the delay
+          this.delay = this.delay * 2;
+          this.setContent();
+        }
 
         // Store accumulated changes
-        var change = new Delta();
+        let change = new Delta();
         this.quill.on('text-change', function(delta,oldDeta,source) {
           // Autolink URLs when typing
           // console.log('text-change',delta);
-          var regex = /https?:\/\/[^\s]+$/;
+          let regex = /https?:\/\/[^\s]+$/;
           if (delta.ops.length === 2 && delta.ops[0].retain && this.isWhitespace(delta.ops[1].insert)) {
-            var endRetain = delta.ops[0].retain;
-            var text = this.quill.getText().substr(0, endRetain);
-            var match = text.match(regex);
+            let endRetain = delta.ops[0].retain;
+            let text = this.quill.getText().substr(0, endRetain);
+            let match = text.match(regex);
 
             if (match !== null) {
-              var url = match[0];
+              let url = match[0];
 
-              var ops = [];
+              let ops = [];
               if (endRetain > url.length) {
                 ops.push({ retain: endRetain - url.length });
               }
@@ -354,7 +358,7 @@ Not used anymore `--polymer-quill-editor-overflow`   | Custom overflow for edito
               ]);
 
               this.quill.updateContents({
-                ops: ops
+                ops: ops,
               });
             }
           }
@@ -389,15 +393,15 @@ Not used anymore `--polymer-quill-editor-overflow`   | Custom overflow for edito
 
         // Autolink URLs when pasting
         this.quill.clipboard.addMatcher(Node.TEXT_NODE, function(node, delta) {
-          var regex = /https?:\/\/[^\s]+/g;
+          let regex = /https?:\/\/[^\s]+/g;
           if (typeof(node.data) !== 'string') return;
-          var matches = node.data.match(regex);
+          let matches = node.data.match(regex);
           if (matches && matches.length > 0) {
-            var ops = [];
-            var str = node.data;
+            let ops = [];
+            let str = node.data;
             matches.forEach(function(match) {
-              var split = str.split(match);
-              var beforeLink = split.shift();
+              let split = str.split(match);
+              let beforeLink = split.shift();
               ops.push({ insert: beforeLink });
               ops.push({ insert: match, attributes: { link: match } });
               str = split.join(match);
@@ -406,47 +410,45 @@ Not used anymore `--polymer-quill-editor-overflow`   | Custom overflow for edito
           }
           return delta;
         });
-        
-      },
+      }
 
-      isWhitespace: function(ch) {
-        var whiteSpace = false
-        if ((ch == ' ') || (ch == '\t') || (ch == '\n')) {
+      isWhitespace(ch) {
+        let whiteSpace = false;
+        if ((ch === ' ') || (ch === '\t') || (ch === '\n')) {
           whiteSpace = true;
         }
         return whiteSpace;
-      },
+      }
 
-      setContent: function() {
-        this.async(function() {
-          var notset = true;
-          if (this.content && this.content.length > 1 && this.content != undefined && this.content !="<p>undefined</p>" ) {
-            if (this.storeAs === 'delta') {
-              this.quill.setContents(JSON.parse(this.content),'api');
-            } else { // HTML
-              this.quill.root.innerHTML = this.content;
-            }
-            notset = false;
-            this.html = this.quill.root.innerHTML;
+      setContent() {
+        let notset = true;
+        if (this.content && this.content.length > 1 && this.content !== undefined && this.content !== '<p>undefined</p>' ) {
+          if (this.storeAs === 'delta') {
+            this.quill.setContents(JSON.parse(this.content),'api');
+          } else { // HTML
+            this.quill.root.innerHTML = this.content;
           }
-          return notset;
-        },this.delay);
-      },
+          notset = false;
+          this.html = this.quill.root.innerHTML;
+        }
+        return notset;
+      }
 
-      attached: function() {
+      connectedCallback() {
+        super.connectedCallback();
         this.fire('attached');
-      },
+      }
 
       // Convert Deltas to HTML, source should be deltas string
-      getHTML: function(source) {
-        var inputDelta = this.content;
+      getHTML(source) {
+        let inputDelta = this.content;
         if (source) {
           inputDelta = source;
         }
-        var html = '';
+        let html = '';
         if (this.storeAs === 'delta') {
-          var tempHtml = document.createElement("div");
-          var quillHtml = new Quill(tempHtml);
+          let tempHtml = document.createElement('div');
+          let quillHtml = new Quill(tempHtml);
           quillHtml.setContents(JSON.parse(inputDelta),'api');
           html = quillHtml.root.innerHTML;
           quillHtml = null;
@@ -456,56 +458,64 @@ Not used anymore `--polymer-quill-editor-overflow`   | Custom overflow for edito
         }
         // console.log('getHTML: ',html);
         return html;
-      },
+      }
 
       // Content Change
-      _contentChanged: function(newValue, oldValue) {
+      _contentChanged(newValue, oldValue) {
         // console.log('_contentChanged',newValue);
-        if (this.useContentReset && newValue != undefined) {
+        if (this.useContentReset && newValue !== undefined) {
           this.resetContent(newValue);
         }
-      },
+      }
 
       // Reset Content
-      resetContent: function(content){
+      resetContent(content) {
         // Set content
-        this.async(function() {
-          if (this.storeAs === 'delta') {
-            if (this.content.length > 1) {
-              this.quill.setContents(JSON.parse(this.content),'api');
-            }
-          } else { // HTML
-            this.quill.root.innerHTML = this.content;
+        if (this.storeAs === 'delta') {
+          if (this.content.length > 1) {
+            this.quill.setContents(JSON.parse(this.content),'api');
           }
-          this.html = this.quill.root.innerHTML;
-        },this.delay);
-      },
+        } else { // HTML
+          this.quill.root.innerHTML = this.content;
+        }
+        this.html = this.quill.root.innerHTML;
+      }
 
       // Toogle Editor Enable (show toolbar and enables editing), Disabled (hide toolbar and disables editing)
-      toggleEnable: function() {
-        if (this.enable  === 'true') {
+      toggleEnable() {
+        if (this.enable === 'true') {
           this.disableEditor();
         } else {
           this.enableEditor();
         }
         return this.enable;
-      },
+      }
 
       // Enable Editor (show toolbar and enable editing)
-      enableEditor: function() {
+      enableEditor() {
         this.enable = 'true';
         this.quill.enable(true);
         this.disabledClass = 'style-scope polymer-quill ql-container ql-bubble';
         this.readOnly = false;
-      },
+      }
 
       // Disabled Editor (hide toolbar and disable editing)
-      disableEditor: function() {
+      disableEditor() {
         this.enable = 'false';
         this.quill.enable(false);
         this.disabledClass = 'style-scope polymer-quill ql-container ql-bubble disabled';
         this.readOnly = true;
       }
-    });
+
+      fire(event, data) {
+        if (data) {
+          this.dispatchEvent(new CustomEvent(event, data));
+        } else {
+          this.dispatchEvent(new CustomEvent(event));
+        }
+      }
+    }
+
+    window.customElements.define(PolymerQuillBubble.is, PolymerQuillBubble);
   </script>
 </dom-module>
