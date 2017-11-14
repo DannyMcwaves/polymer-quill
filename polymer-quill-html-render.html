@@ -110,9 +110,9 @@ Custom property | Description | Default
   </template>
 
   <script>
-    Polymer({
+    class PolymerQuillHtmlRender extends Polymer {
 
-      is: 'polymer-quill-html-render',
+      static get is() {return 'polymer-quill-html-render';}
 
       /**
         * Fired when element is attached.
@@ -126,21 +126,27 @@ Custom property | Description | Default
         * @event ready
         */
 
-      properties: {
+      static get properties() {
         /**
          * Content which is in HTML format.
          */
-        content: {
-          type: String,
-          value: '',
-          notify: true,
-        },
-      },
+        return {
+          content: {
+            type: String,
+            value: '',
+            notify: true,
+          }
+        };
+      }
 
-      ready: function() {
+      ready() {
+        super.ready();
         console.log('polymer-quill-html-render ready');
       }
 
-    });
+    }
+
+    window.customElements.define(PolymerQuillHtmlRender.is, PolymerQuillHtmlRender);
+
   </script>
 </dom-module>
