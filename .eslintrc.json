@@ -14,7 +14,11 @@
     "new-cap": ["error", { "capIsNewExceptions": ["Polymer"] }],
     "no-var": "off",
     "require-jsdoc": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "max-len": "off",
+    "comma-dangle":"off",
+    "object-curly-spacing":"off",
+    "comma-spacing":"off"
   },
   "globals": {
     "Polymer": true
