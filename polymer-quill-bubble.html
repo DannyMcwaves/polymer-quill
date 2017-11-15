@@ -1,6 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="polymer-quill-import.html">
-<link rel="import" href="polymer-quill-styles-bubble.html">
+<link rel="import" href="polymer-quill-styles.html">
 
 <!--
 ## Polymer Quill Rich Text Editor - Bubble toolbar like Medium WIP
@@ -81,7 +81,7 @@ Not used anymore `--polymer-quill-editor-overflow`   | Custom overflow for edito
 
 <dom-module id="polymer-quill-bubble">
   <template>
-    <style include="polymer-quill-styles-bubble">
+    <style include="quill-core quill-bubble">
       :host {
         --calculated-polymer-quill-scrolling-height: var(--polymer-quill-scrolling-height, 100%);
         --calculated-polymer-quill-scrolling-min-height: var(--polymer-quill-scrolling-min-height, 100%);
