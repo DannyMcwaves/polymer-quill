@@ -1,7 +1,7 @@
 
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="polymer-quill-import.html">
-<link rel="import" href="polymer-quill-styles-snow.html">
+<link rel="import" href="polymer-quill-styles.html">
 
 <!--
 ## Polymer Quill Rich Text Editor using Snow Theme
@@ -78,7 +78,7 @@ Custom property | Description | Default
 
 <dom-module id="polymer-quill">
   <template>
-    <style include="polymer-quill-styles-snow">
+    <style include="quill-snow quill-core">
       :host {
         --calculated-polymer-quill-editor-max-height: var(--polymer-quill-editor-max-height, 400px);
         --calculated-polymer-quill-editor-min-height: var(--polymer-quill-editor-min-height, 50px);
@@ -101,9 +101,12 @@ Custom property | Description | Default
         border: 1px solid #ccc !important;
         opacity: 0.85;
       }
+      .hide{
+        display: none !important;
+      }
 
     </style>
-    <div id="toolbar" hidden$='{{hideToolbar}}'>
+    <div id="toolbar" class="hid" hidden$='{{hideToolbar}}'>
       <!-- <span class="ql-formats">
       <select class="ql-font"></select>
       <select class="ql-size"></select>
@@ -117,12 +120,12 @@ Custom property | Description | Default
           <option value="5">Header 5</option>
           <option value="7">Normal</option>
         </select>
-        <select class="ql-header"  hidden$="{{!standardToolbar}}">
-          <option value="1">Header 1</option>
-          <option value="2">Header 2</option>
-          <option value="3">Header 3</option>
-          <option value="7">Normal</option>
-        </select>
+        <!--<select class="ql-header"  hidden$="{{!standardToolbar}}">-->
+          <!--<option value="1">Header 1</option>-->
+          <!--<option value="2">Header 2</option>-->
+          <!--<option value="3">Header 3</option>-->
+          <!--<option value="7">Normal</option>-->
+        <!--</select>-->
       </span>
       <span class="ql-formats">
         <button class="ql-bold" title="Bold"></button>
@@ -176,6 +179,20 @@ Custom property | Description | Default
 
       constructor() {
         super();
+        this.toolbarOptions = {
+          type: Object,
+          notify: true,
+          value: [
+            [{ header: [1, 2, 3, 4, false] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ 'align': [] }],
+            [{ 'indent': '-1'}, { 'indent': '+1' }],
+            ['link', 'blockquote', 'code-block', 'image', 'video'],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            ['clean']
+          ]
+        };
       }
 
       static get is() {return 'polymer-quill';}
